@@ -16,8 +16,6 @@ BreweryProfile is a RESTful API built with [Next.js](https://nextjs.org/). It al
 - **Flexible Querying**: Allows users to search for breweries using a simple and intuitive query structure.
 - **SEO-Friendly**: Built with SEO in mind to ensure optimal search engine visibility for the API documentation.
 
-## Getting Started
-
 ## License
 
 **All rights reserved**. This project and its content, including but not limited to code, documentation, and assets, are the exclusive property of the author. Unauthorized copying, modification, distribution, or use of any part of this project is strictly prohibited without prior written permission from the author.
