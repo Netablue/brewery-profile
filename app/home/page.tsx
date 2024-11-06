@@ -1,4 +1,5 @@
 import { use } from 'react';
+import SearchBrewery from '@/components/SearchBrewery/SearchBrewery';
 
 interface User {
   id: number;
@@ -18,7 +19,7 @@ export default function Home() {
   const users = use(getUsers());
 
   return (
-    <div>
+    <div className='text-center'>
       <h1>Users List</h1>
       <ul>
 
@@ -35,6 +36,10 @@ export default function Home() {
         )}
 
       </ul>
+
+      {/* SearchBrewery */}
+      <SearchBrewery/>
+
     </div>
   );
 }
