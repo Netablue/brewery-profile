@@ -1,19 +1,36 @@
 // app/api/breweries/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { breweries } from './data';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
+
   const query = searchParams.get('name')?.toLowerCase();
 
-  // If `query` is set, filter the results
-  if (query) {
-    const results = breweries.filter((brewery) =>
-      brewery.name.toLowerCase().includes(query)
-    );
-    return NextResponse.json(results);
-  }
+console.log(query)
+console.log(searchParams)
 
-  // If `query` is not defined, we return all breweries
-  return NextResponse.json(breweries);
+  try {
+    let breweries;
+    if (query) {
+      breweries = await prisma.brewery.findMany({
+        where: {
+          name: {
+            contains: query,
+            // mode: 'insensitive',
+          },
+        },
+      });
+    } else {
+      breweries = await prisma.brewery.findMany();
+    }
+    return NextResponse.json(breweries);
+  } catch (error) {
+    console.error('Error fetching breweries:', error);
+    return NextResponse.json({ error: 'Failed to fetch breweries' }, { status: 500 });
+  } finally {
+    await prisma.$disconnect();
+  }
 }
